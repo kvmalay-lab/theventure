@@ -1,33 +1,20 @@
-import { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import HowItWorks from './components/HowItWorks';
-import Exercises from './components/Exercises';
-import Download from './components/Download';
-import Footer from './components/Footer';
-import Navigation from './components/Navigation';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import Dashboard from './pages/Dashboard';
+import WorkoutSession from './pages/WorkoutSession';
+import History from './pages/History';
 
 function App() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   return (
-    <div className="min-h-screen bg-gray-900">
-      <Navigation scrolled={scrolled} />
-      <Hero />
-      <Features />
-      <HowItWorks />
-      <Exercises />
-      <Download />
-      <Footer />
-    </div>
+    <Router>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Dashboard />} />
+          <Route path="/workout" element={<WorkoutSession />} />
+          <Route path="/history" element={<History />} />
+        </Routes>
+      </Layout>
+    </Router>
   );
 }
 
